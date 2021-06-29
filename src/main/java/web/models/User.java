@@ -1,6 +1,7 @@
 package web.models;
 
 import javax.persistence.*;
+import java.util.Set;
 
 @Entity
 @Table(name = "users")
@@ -19,13 +20,18 @@ public class User {
     @Column(name = "email")
     private String email;
 
+    @ManyToMany
+    Set <Role> roles;
+
+
     public User() {
     }
 
-    public User(String firstName, String lastName, String email) {
+    public User(String firstName, String lastName, String email, Set<Role> roles) {
         this.firstName = firstName;
         this.lastName = lastName;
         this.email = email;
+        this.roles = roles;
     }
 
     public Long getId() {

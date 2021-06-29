@@ -3,4 +3,8 @@
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-app_4_0.xsd"
          version="4.0">
+    <absolute-ordering>
+        <name>fragment_name_if_required</name>
+        <others></others>
+    </absolute-ordering>
 </web-app>
