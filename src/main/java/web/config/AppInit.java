@@ -5,12 +5,19 @@ import org.springframework.web.servlet.support.AbstractAnnotationConfigDispatche
 
 import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
+import java.sql.DriverManager;
+import java.sql.SQLException;
+import java.util.Collections;
 
 public class AppInit extends AbstractAnnotationConfigDispatcherServletInitializer {
 
+
     @Override
     protected Class<?>[] getRootConfigClasses() {
-        return new Class[]{HiberConf.class};
+        return   new Class[]{
+                HiberConf.class
+        };
+
     }
 
     @Override
@@ -18,7 +25,10 @@ public class AppInit extends AbstractAnnotationConfigDispatcherServletInitialize
         return new Class<?>[]{
                 WebConfig.class
         };
+
+
     }
+
 
     @Override
     protected String[] getServletMappings() {
