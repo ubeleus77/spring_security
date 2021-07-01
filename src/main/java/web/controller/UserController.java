@@ -7,7 +7,7 @@ import org.springframework.web.bind.annotation.*;
 import web.service.UserService;
 
 @Controller
-@RequestMapping("/people")
+@RequestMapping("")
 public class UserController {
 
     private final UserService userService;
@@ -19,7 +19,7 @@ public class UserController {
 
     @GetMapping("/user")
     public String showProfile(Model model, Authentication aut) {
-        model.addAttribute("user", userService.getUserByUsername(aut.getName()));
+        model.addAttribute("helloUser", userService.getUserByUsername(aut.getName()));
         return "user";
     }
 
