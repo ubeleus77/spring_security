@@ -5,8 +5,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+import web.models.Role;
 import web.models.User;
 import web.service.UserService;
+
+import java.util.HashSet;
+import java.util.Set;
 
 @Controller
 @RequestMapping("/admin")
@@ -17,7 +21,7 @@ public class AdminController {
     @GetMapping()
     public String getAllUsers(Model model){
         model.addAttribute("getAllUsers", userService.getAllUsers());
-        return "index";
+        return "testIndex";
     }
 
     @GetMapping("/new")
@@ -27,10 +31,13 @@ public class AdminController {
     }
 
     @PostMapping()
-    public String createUser(@ModelAttribute("createUser") User user){
+    public String addUser(@ModelAttribute("user") User user, @ModelAttribute("myRole") String myRole) {
+        Role role = new Role((myRole.equals("ADMIN") ? 1L : 2L), "ROLE" + myRole);
+        Set<Role> roles = new HashSet<>();
+        roles.add(role);
+        user.setRoles(roles);
         userService.addUser(user);
         return "redirect:/admin";
-
     }
 
 
