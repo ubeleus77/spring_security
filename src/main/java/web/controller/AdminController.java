@@ -48,7 +48,7 @@ public class AdminController {
     }
 
     @PatchMapping("/{id}")
-    public String patch(@ModelAttribute("user") User user,  @PathVariable Long id){
+    public String patch(@ModelAttribute("user") User user,  @PathVariable Long id, @ModelAttribute("myRole") String myRole){
 
      userService.updateUser(userService.getUserById(id));
 

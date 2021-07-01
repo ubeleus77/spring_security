@@ -2,6 +2,7 @@ package web.dao;
 
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
+import web.models.Role;
 import web.models.User;
 
 import javax.persistence.EntityManager;
@@ -16,6 +17,8 @@ public class UserDaoImpl implements UserDAO {
 
     @PersistenceContext
     private EntityManager entityManager;
+
+
 
     @Override
     @Transactional
@@ -56,6 +59,18 @@ public class UserDaoImpl implements UserDAO {
 
     @Override
     public User getUser(String s) {
-        return null;
+        return entityManager.find(User.class, s);
+    }
+
+    public void newRole (Long id){
+
+        Role roleAdmin = entityManager.find(Role.class, 1);
+        User user1 = getUserById(id);
+        user1.addRole(roleAdmin);
+
+    }
+    public void deleteRole(Long id){
+        User user = getUserById(id);
+        user.removeRole(2L);
     }
 }
