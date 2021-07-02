@@ -1,5 +1,6 @@
 package web.controller;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -7,20 +8,19 @@ import org.springframework.web.bind.annotation.*;
 import web.service.UserService;
 
 @Controller
-@RequestMapping("")
+@RequestMapping("/user")
 public class UserController {
 
-    private final UserService userService;
+    private UserService userService;
 
+    @Autowired
     public UserController(UserService userService) {
         this.userService = userService;
     }
 
-
-    @GetMapping("/user")
+    @GetMapping()
     public String showProfile(Model model, Authentication aut) {
-        model.addAttribute("helloUser", userService.getUserByUsername(aut.getName()));
+        model.addAttribute("user", userService.getUserByUsername(aut.getName()));
         return "user";
     }
-
 }
