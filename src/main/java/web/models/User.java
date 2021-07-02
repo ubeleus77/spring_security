@@ -36,31 +36,13 @@ public class User implements UserDetails {
     public User() {
     }
 
-    public User(String firstName, String lastName, String email, Set<Role> roles) {
-        this.firstName = firstName;
-        this.lastName = lastName;
-        this.email = email;
-        this.roles = roles;
-    }
-
-    public User(String firstName, String lastName, String email, String password, Set<Role> roles) {
+    public User(Long id, String firstName, String lastName, String email, String password, Set<Role> roles) {
+        this.id = id;
         this.firstName = firstName;
         this.lastName = lastName;
         this.email = email;
         this.password = password;
         this.roles = roles;
-    }
-
-    public UserDetails getUserDetails() {
-        return new org.springframework.security.core.userdetails.User(
-                firstName,
-                password,
-                isEnabled(),
-                isAccountNonExpired(),
-                isCredentialsNonExpired(),
-                isAccountNonLocked(),
-                roles
-        );
     }
 
     public Long getId() {
@@ -119,7 +101,7 @@ public class User implements UserDetails {
 
     @Override
     public String getUsername() {
-        return getFirstName();
+        return firstName;
     }
 
     @Override
@@ -140,13 +122,5 @@ public class User implements UserDetails {
     @Override
     public boolean isEnabled() {
         return true;
-    }
-
-    public void addRole(Role role){
-        this.roles.add(role);
-    }
-
-    public void removeRole(Long id) {
-        this.roles.remove(id);
     }
 }

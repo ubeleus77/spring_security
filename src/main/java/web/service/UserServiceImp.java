@@ -44,7 +44,7 @@ public class UserServiceImp implements UserService, UserDetailsService {
     }
 
     @Override
-    public User getUserById(long id) {
+    public User getUserById(Long id) {
         return userDAO.getUserById(id);
     }
 
@@ -54,19 +54,20 @@ public class UserServiceImp implements UserService, UserDetailsService {
     }
 
     @Override
-    public UserDetails loadUserByUsername(String s) throws UsernameNotFoundException {
-        return null;
+    public User getUser(String s) {
+        return userDAO.getUserByName(s);
     }
 
     @Override
-    public Object getUserByUsername(String name) {
-        User user = userDAO.getUser(name);
+    public UserDetails loadUserByUsername(String name) throws UsernameNotFoundException {
+        User user = userDAO.getUserByName(name);
         if(user == null){
             throw new UsernameNotFoundException(String.format("User '%s' not found", name));
+        }else {
+            return new org.springframework.security.core.userdetails.User(
+                    user.getUsername(), user.getPassword(),
+                    mapRolesToAuthorities(user.getRoles()));
         }
-        return new org.springframework.security.core.userdetails.User(
-                user.getUsername(), user.getPassword(),
-                mapRolesToAuthorities(user.getRoles()));
     }
 
     private Collection<? extends GrantedAuthority> mapRolesToAuthorities(Collection<Role> roles){

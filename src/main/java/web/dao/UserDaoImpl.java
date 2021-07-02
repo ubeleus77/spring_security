@@ -42,8 +42,10 @@ public class UserDaoImpl implements UserDAO {
 
     }
 
+
+
     @Override
-    public User getUserById(long id) {
+    public User getUserById(Long id) {
         TypedQuery<User> userTypedQuery = entityManager.createQuery("select  u from User u where u.id = : id", User.class);
         userTypedQuery.setParameter("id", id);
         entityManager.close();
@@ -58,19 +60,9 @@ public class UserDaoImpl implements UserDAO {
     }
 
     @Override
-    public User getUser(String s) {
+    public User getUserByName(String s) {
         return entityManager.find(User.class, s);
     }
 
-    public void newRole (Long id){
 
-        Role roleAdmin = entityManager.find(Role.class, 1);
-        User user1 = getUserById(id);
-        user1.addRole(roleAdmin);
-
-    }
-    public void deleteRole(Long id){
-        User user = getUserById(id);
-        user.removeRole(2L);
-    }
 }
