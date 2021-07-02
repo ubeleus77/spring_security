@@ -20,15 +20,8 @@ import java.util.List;
 public class AdminController {
     @Autowired
     private UserService userService;
-//    private RoleDao roleDao;
-//
-//
-//
-//
-//    public AdminController(UserService userService, RoleDao roleDao) {
-//        this.userService = userService;
-//        this.roleDao = roleDao;
-//    }
+    @Autowired
+    private RoleDao roleDao;
 
     @GetMapping()
     public String getAllUsers(Model model){
