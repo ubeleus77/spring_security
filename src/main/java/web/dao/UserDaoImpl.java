@@ -24,7 +24,7 @@ public class UserDaoImpl implements UserDAO {
     @Transactional
     public void addUser(User user) {
         entityManager.persist(user);
-        entityManager.close();
+
     }
 
     @Override
@@ -39,7 +39,7 @@ public class UserDaoImpl implements UserDAO {
     public void removeUserById(Long id) {
         entityManager.createQuery("delete from User u where u.id = : id")
                 .setParameter("id", id).executeUpdate();
-        entityManager.close();
+
     }
 
     @Override
@@ -54,7 +54,7 @@ public class UserDaoImpl implements UserDAO {
     @Transactional
     public void updateUser(User user) {
         entityManager.merge(user);
-        entityManager.close();
+
     }
 
     @Override

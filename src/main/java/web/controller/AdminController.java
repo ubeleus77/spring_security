@@ -2,21 +2,33 @@ package web.controller;
 
 
 import org.springframework.beans.factory.annotation.Autowired;
+
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
-import web.models.Role;
+import web.dao.RoleDao;
+
 import web.models.User;
 import web.service.UserService;
 
-import java.util.HashSet;
-import java.util.Set;
+
+import java.util.List;
+
 
 @Controller
 @RequestMapping("/admin")
 public class AdminController {
     @Autowired
     private UserService userService;
+//    private RoleDao roleDao;
+//
+//
+//
+//
+//    public AdminController(UserService userService, RoleDao roleDao) {
+//        this.userService = userService;
+//        this.roleDao = roleDao;
+//    }
 
     @GetMapping()
     public String getAllUsers(Model model){
@@ -31,14 +43,21 @@ public class AdminController {
     }
 
     @PostMapping()
-    public String addUser(@ModelAttribute("user") User user, @ModelAttribute("myRole") String myRole) {
-        Role role = new Role((myRole.equals("ADMIN") ? 1L : 2L), "ROLE" + myRole);
-        Set<Role> roles = new HashSet<>();
-        roles.add(role);
-        user.setRoles(roles);
-        userService.addUser(user);
+    public String createUser(@ModelAttribute("user") User user,
+                             @RequestParam(value = "rolesId") List<String> roles) {
+//        Long idRole = Long.parseLong(roles.get(0));
+//        if (idRole != 1) {
+//            Set<Role> rolesUser = new HashSet<>();
+//            rolesUser.add(roleDao.getById(1L));
+//            rolesUser.add(roleDao.getById(idRole));
+//            user.setRoles(rolesUser);
+//        } else {
+//            user.setRoles(Collections.singleton(roleDao.getById(1L)));
+//        }
+//        userService.addUser(user);
         return "redirect:/admin";
     }
+
 
 
     @GetMapping("/{id}/edit")
@@ -47,13 +66,23 @@ public class AdminController {
         return "testEdit";
     }
 
-    @PatchMapping("/{id}")
-    public String patch(@ModelAttribute("user") User user,  @PathVariable Long id, @ModelAttribute("myRole") String myRole){
-
-     userService.updateUser(userService.getUserById(id));
-
+    @PatchMapping("/admin/{id}")
+    public String update(@ModelAttribute("user") User user,
+                         @PathVariable("id") Long id,
+                         @RequestParam(value = "rolesId") List<String> roles) {
+//        Long idRole = Long.parseLong(roles.get(0));
+//        if (idRole != 1) {
+//            Set<Role> rolesUser = new HashSet<>();
+//            rolesUser.add(roleDao.getById(1L));
+//            rolesUser.add(roleDao.getById(idRole));
+//            user.setRoles(rolesUser);
+//        } else {
+//            user.setRoles(Collections.singleton(roleDao.getById(1L)));
+//        }
+//        userService.updateUser(user);
         return "redirect:/admin";
     }
+
 
     @DeleteMapping("/{id}")
     public String delete(@PathVariable Long id){
