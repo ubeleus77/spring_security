@@ -54,7 +54,7 @@ public class UserServiceImp implements UserService, UserDetailsService {
     }
 
     @Override
-    public User getUser(String s) {
+    public User getUserByName(String s) {
         return userDAO.getUserByName(s);
     }
 

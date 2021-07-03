@@ -42,12 +42,12 @@ public class AdminController {
     @PostMapping()
     public String createUser(@ModelAttribute("user") User user,
                              @RequestParam(value = "rolesId") List<String> roles) {
-        Long idRole = Long.parseLong(roles.get(0));
-        if (idRole != 1) {
-            Set<Role> rolesUser = new HashSet<>();
-            rolesUser.add(roleDao.getById(1L));
-            rolesUser.add(roleDao.getById(idRole));
-            user.setRoles(rolesUser);
+        Long role = Long.parseLong(roles.get(0));
+        if (role != 1L) {
+            Set<Role> r1 = new HashSet<>();
+            r1.add(roleDao.getById(1L));
+            r1.add(roleDao.getById(role));
+            user.setRoles(r1);
         } else {
             user.setRoles(Collections.singleton(roleDao.getById(1L)));
         }
@@ -67,12 +67,12 @@ public class AdminController {
     public String update(@ModelAttribute("user") User user,
                          @PathVariable("id") Long id,
                          @RequestParam(value = "rolesId") List<String> roles) {
-        Long idRole = Long.parseLong(roles.get(0));
-        if (idRole != 1) {
-            Set<Role> rolesUser = new HashSet<>();
-            rolesUser.add(roleDao.getById(1L));
-            rolesUser.add(roleDao.getById(idRole));
-            user.setRoles(rolesUser);
+        Long role = Long.parseLong(roles.get(0));
+        if (role != 1L) {
+            Set<Role> r1 = new HashSet<>();
+            r1.add(roleDao.getById(1L));
+            r1.add(roleDao.getById(role));
+            user.setRoles(r1);
         } else {
             user.setRoles(Collections.singleton(roleDao.getById(1L)));
         }
